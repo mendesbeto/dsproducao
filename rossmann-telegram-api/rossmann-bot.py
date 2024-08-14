@@ -5,38 +5,28 @@ import pandas as pd
 
 from flask import Flask, request, Response
 
-# constants
-TOKEN = '944200092:AAHrHbZ1Q_LaJkVG6SZs6Em3qf6GdL5r-II'
+TOKEN = '7334939088:AAHjt5akazbTPhGcyOJbBHhLQz59RbzMKQk'
+#https://api.telegram.org/bot7334939088:AAH6nR5-UE5ABF8EQsf0T4ThSDTQ6kGIhwI/getMe
+#https://api.telegram.org/bot7334939088:AAH6nR5-UE5ABF8EQsf0T4ThSDTQ6kGIhwI/getUpdates
+#https://api.telegram.org/bot7334939088:AAH6nR5-UE5ABF8EQsf0T4ThSDTQ6kGIhwI/sendMessage?chat_id=6184591677&text=Hi Beto, i am good
+#https://api.telegram.org/bot7334939088:AAHjt5akazbTPhGcyOJbBHhLQz59RbzMKQk/setWebhook?url=https://f2608d26e27d31.lhr.life
 
-## Info about the Bot
-#https://api.telegram.org/bot944200092:AAHrHbZ1Q_LaJkVG6SZs6Em3qf6GdL5r-II/getMe
-#
-## get updates
-#https://api.telegram.org/bot944200092:AAHrHbZ1Q_LaJkVG6SZs6Em3qf6GdL5r-II/getUpdates
-
-## Webhook
-#https://api.telegram.org/bot944200092:AAHrHbZ1Q_LaJkVG6SZs6Em3qf6GdL5r-II/setWebhook?url=https://meigarom-c4hh.localhost.run
-
-## Webhook Heroku
-#https://api.telegram.org/bot944200092:AAHrHbZ1Q_LaJkVG6SZs6Em3qf6GdL5r-II/setWebhook?url=https://rossmann-bot.herokuapp.com
-#
-## send message
-#https://api.telegram.org/bot944200092:AAHrHbZ1Q_LaJkVG6SZs6Em3qf6GdL5r-II/sendMessage?chat_id=449124440&text=Hi Meigarom, I am doing good, tks!
-#
 def send_message( chat_id, text ):
-    url = 'https://api.telegram.org/bot{}/'.format( TOKEN ) 
-    url = url + 'sendMessage?chat_id={}'.format( chat_id ) 
+    url = 'https://api.telegram.org/bot{}/'.format(TOKEN)
+    url = url + 'sendMessage?chat_id={}'.format(chat_id)
 
-    r = requests.post( url, json={'text': text } )
-    print( 'Status Code {}'.format( r.status_code ) )
+    r = requests.post( url, json={'text': text})
+    print('Status Code {}'.format( r.status_code ) )
 
     return None
-
-
-def load_dataset( store_id ):
+    
+        
+def load_dataset(store_id):
     # loading test dataset
-    df10 = pd.read_csv( 'test.csv' )
-    df_store_raw = pd.read_csv( 'store.csv' )
+    df10 = pd.read_csv( '/home/mendesbeto/dsproducao/data/test.csv' )
+    df_store_raw = pd.read_csv( '/home/mendesbeto/dsproducao/data/store.csv' )
+    #df10 = pd.read_csv( 'test.csv' )
+    #df_store_raw = pd.read_csv( 'store.csv' )
 
     # merge test dataset + store
     df_test = pd.merge( df10, df_store_raw, how='left', on='Store' )
@@ -131,5 +121,5 @@ def index():
 
 
 if __name__ == '__main__':
-    port = os.environ.get( 'PORT', 5000 )
-    app.run( host='0.0.0.0', port=port )
+    #port = os.environ.get( 'PORT', 5000 )
+    app.run( host='0.0.0.0', port=5000 )
