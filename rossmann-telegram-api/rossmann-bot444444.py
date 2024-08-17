@@ -5,29 +5,27 @@ import pandas as pd
 
 from flask import Flask, request, Response
 
-# constants
 TOKEN = '7334939088:AAHjt5akazbTPhGcyOJbBHhLQz59RbzMKQk'
-
 #https://api.telegram.org/bot7334939088:AAH6nR5-UE5ABF8EQsf0T4ThSDTQ6kGIhwI/getMe
 #https://api.telegram.org/bot7334939088:AAH6nR5-UE5ABF8EQsf0T4ThSDTQ6kGIhwI/getUpdates
 #https://api.telegram.org/bot7334939088:AAH6nR5-UE5ABF8EQsf0T4ThSDTQ6kGIhwI/sendMessage?chat_id=6184591677&text=Hi Beto, i am good
 #https://api.telegram.org/bot7334939088:AAHjt5akazbTPhGcyOJbBHhLQz59RbzMKQk/setWebhook?url=https://f2608d26e27d31.lhr.life
 
 def send_message( chat_id, text ):
-    url = 'https://api.telegram.org/bot{}/'.format( TOKEN ) 
-    url = url + 'sendMessage?chat_id={}'.format( chat_id ) 
+    url = 'https://api.telegram.org/bot{}/'.format(TOKEN)
+    url = url + 'sendMessage?chat_id={}'.format(chat_id)
 
-    r = requests.post( url, json={'text': text } )
-    print( 'Status Code {}'.format( r.status_code ) )
+    r = requests.post( url, json={'text': text})
+    print('Status Code {}'.format( r.status_code ) )
 
     return None
-
-
-def load_dataset( store_id ):
+    
+        
+def load_dataset(store_id):
     # loading test dataset
     df10 = pd.read_csv( '/home/mendesbeto/dsproducao/data/test.csv' )
     df_store_raw = pd.read_csv( '/home/mendesbeto/dsproducao/data/store.csv' )
-    ##df10 = pd.read_csv( 'test.csv' )
+    #df10 = pd.read_csv( 'test.csv' )
     #df_store_raw = pd.read_csv( 'store.csv' )
 
     # merge test dataset + store
@@ -51,19 +49,18 @@ def load_dataset( store_id ):
     return data
 
 
-#def predict( data ):
-#    # API Call
-#    url = 'http://0.0.0.0:5000/rossmann/predict'
-#    #url = 'https://rossmann-model-test.herokuapp.com/rossmann/predict'
-#    header = {'Content-type': 'application/json' }
-#    data = data
-#
-#    r = requests.post( url, data=data, headers=header )
-#    print( 'Status Code {}'.format( r.status_code ) )
-#
-#    d1 = pd.DataFrame( r.json(), columns=r.json()[0].keys() )
-#
-#    return d1
+def predict( data ):
+    # API Call
+    url = 'https://rossmann-model-test.herokuapp.com/rossmann/predict'
+    header = {'Content-type': 'application/json' }
+    data = data
+
+    r = requests.post( url, data=data, headers=header )
+    print( 'Status Code {}'.format( r.status_code ) )
+
+    d1 = pd.DataFrame( r.json(), columns=r.json()[0].keys() )
+
+    return d1
 
 
 def parse_message( message ):
