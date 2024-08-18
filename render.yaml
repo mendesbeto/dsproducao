@@ -1,0 +1,12 @@
+# Exported from Render on 2024-08-18T05:05:34Z
+services:
+- type: web
+  name: dsproducao
+  runtime: elixir
+  repo: https://github.com/mendesbeto/dsproducao
+  plan: free
+  region: oregon
+  buildCommand: yarm build
+  startCommand: yarm start
+  pullRequestPreviewsEnabled: false
+version: "1"
